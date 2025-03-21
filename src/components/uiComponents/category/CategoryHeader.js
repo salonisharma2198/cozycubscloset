@@ -8,7 +8,7 @@ const Categoryheader = () => {
 
   const categoryArr = [
     { categoryName: 'Tiny Blossoms', categoryType: 'Infant_Girls', category: 'Infant', img: infantGirl, ageGroup: '0-2 years' },
-    { categoryName: 'Little Gentlemen', categoryType: 'Infant_Boys', category: 'Infant', img: infantBoy, ageGroup: '0-2 years' },
+    { categoryName: 'Tiny Gentlemen', categoryType: 'Infant_Boys', category: 'Infant', img: infantBoy, ageGroup: '0-2 years' },
     { categoryName: 'Toddler Girls', categoryType: 'Girls', category: 'Girls', img: categoryGirl, ageGroup: '3 and above years' },
     { categoryName: 'Toddler Boys', categoryType: 'Boys', category: 'Boys', img: categoryBoy, ageGroup: '3 and above years' },
     { categoryName: 'See All', categoryType: 'All', category: 'All', img: arrowRight, ageGroup: '' }

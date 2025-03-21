@@ -20,4 +20,5 @@ export const panda2 = require('../assets/panda-bear.png')
 export const panda3 = require('../assets/bear.png')
 export const mushroom = require('../assets/mushrooms.png')
 export const arrowRight = require('../assets/right.png')
+export const babyDress = require('../assets/babydress.jpeg')
 

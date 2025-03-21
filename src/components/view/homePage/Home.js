@@ -1,7 +1,8 @@
 import { childBG1, childBG2, childBG3, childBG4, childBG5, childBG6 } from "../../aasets";
-import { BackgroundImgWrapper, ShopNowButton, AnimatedTypography,WrapperDiv } from "./HomeMuiStyle";
+import { BackgroundImgWrapper, ShopNowButton, AnimatedTypography,WrapperDiv,HeadingWrapper } from "./HomeMuiStyle";
 import './HomeStyle.css';
 import Categoryheader from "../../uiComponents/category/CategoryHeader";
+import { Typography } from "@mui/material";
 
 const Home = () => {
   return (
@@ -40,7 +41,7 @@ const Home = () => {
         </ul>
       </BackgroundImgWrapper>
       </WrapperDiv>
-      <h1>SERVICES</h1>
+      <HeadingWrapper>Little Fashionista Selections</HeadingWrapper>
     </div>
   )
 }

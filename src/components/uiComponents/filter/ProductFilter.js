@@ -1,125 +1,85 @@
 import React, { useState } from "react";
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import { Slider } from "@mui/material";
-import { FilterOptions } from "./ProductFilterMuiStyle";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import Button from "@mui/material/Button";
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 const ProductFilter = () => {
-  const size = ['XS', 'S', 'L', 'M', 'XL'];
-  const age = ['0-2', '3-6', '6-10', '11-15']
-
-  const [value, setValue] = useState(0); // Initial range values
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const filterOptions = {
+    Gender: ["Boy", "Girl"],
+    Age: ["0-6 months", "6-12 months", "1-2 years", "3 years & Above"],
+    Occasion: [
+      "Step Out",
+      "Play",
+      "At Home",
+      "Weekend",
+      "Celebrate",
+      "Casual",
+      "Party",
+      "Essentials",
+      "Festive",
+    ],
+    Price: ["Below 500 Rs", "500-900 Rs", "1000 Rs & Above"],
+    Color: ["Red", "Blue", "Green", "Yellow", "Black", "White"],
   };
 
-  return (
+  const [selectedFilters, setSelectedFilters] = useState({});
+
+  const handleCheckboxChange = (category, option) => {
+    setSelectedFilters((prev) => {
+      const categoryFilters = prev[category] || [];
+      const newFilters = categoryFilters.includes(option)
+        ? categoryFilters.filter((item) => item !== option)
+        : [...categoryFilters, option];
+      return { ...prev, [category]: newFilters };
+    });
+  };
+
+  const sendFiltersToAPI = () => {
+    console.log("Selected Filters:", selectedFilters);
+    // API call can be made here 
+  };
+
+  const dropdownOptions = (label, options) => (
     <div>
-      <Typography>FILTER BY</Typography>
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
-          aria-controls="panel2-content"
-        >
-          <Typography>Collection</Typography>
+      <Accordion key={label}>
+        <AccordionSummary expandIcon={<ArrowDropDownIcon />} aria-controls={`${label}-content`}>
+          <Typography>{label}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <FormGroup>
-            {age.map((value) => {
-              return (
-                <FormControlLabel control={<Checkbox />} label={`${value} years`} />
-              )
-            })}
-          </FormGroup>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
-          aria-controls="panel2-content"
-        >
-          <Typography>Size</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <FormGroup>
-            {size.map((value) => {
-              return (
-                <FormControlLabel control={<Checkbox />} label={value} />
-              )
-            })}
-          </FormGroup>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
-          aria-controls="panel2-content"
-        >
-          <Typography>Age</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <FormGroup>
-            {age.map((value) => {
-              return (
-                <FormControlLabel control={<Checkbox />} label={`${value} years`} />
-              )
-            })}
-          </FormGroup>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
-          aria-controls="panel2-content"
-        >
-          <Typography>Price</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <FormGroup>
-            <Slider
-              value={value}
-              onChange={handleChange}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
-              min={0}
-              max={100}
-            />
-            <Typography>{value} Rs</Typography>
-          </FormGroup>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
-          aria-controls="panel2-content"
-        >
-          <Typography>Color</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <FormGroup>
-            {age.map((value) => {
-              return (
-                <FormControlLabel control={<Checkbox />} label={`${value} years`} />
-              )
-            })}
+            {options.map((option) => (
+              <FormControlLabel
+                key={option}
+                control={
+                  <Checkbox
+                    checked={selectedFilters[label]?.includes(option) || false}
+                    onChange={() => handleCheckboxChange(label, option)}
+                  />
+                }
+                label={option}
+              />
+            ))}
           </FormGroup>
         </AccordionDetails>
       </Accordion>
     </div>
-  )
+  );
 
-}
+  return (
+    <div>
+       <Button fullWidth variant="text" startIcon={<FilterListIcon />} color="secondary" onClick={sendFiltersToAPI}>
+        Apply Filter
+      </Button>
+      {Object.entries(filterOptions).map(([label, options]) => dropdownOptions(label, options))}
+    </div>
+  );
+};
 
-export default ProductFilter
+export default ProductFilter;

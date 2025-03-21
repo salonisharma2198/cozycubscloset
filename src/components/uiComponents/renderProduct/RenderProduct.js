@@ -2,11 +2,15 @@ import React from "react";
 import Card from '@mui/material/Card';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { StyledCardAction, StyledCardContent, StyledCardActionArea, StyledCardMedia, ProductWrapper, ProductNameWrapper } from "./ViewProductMuiStyles";
+import { StyledCardAction, StyledCardContent, StyledCardActionArea, StyledCardMedia, ProductWrapper, ProductNameWrapper } from "./RenderProductMuiStyle";
 import ProductFilter from "../../uiComponents/filter/ProductFilter";
 import { Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { babyDress } from "../../aasets";
 
 const ViewProducts = () => {
+  const navigate=useNavigate();
+
   return (
     <div>
       <Grid container>
@@ -14,18 +18,20 @@ const ViewProducts = () => {
           <ProductFilter />
         </Grid>
         <ProductWrapper item xs={10}>
-          <Card sx={{ maxWidth: 230, width:'100%', margin: '9px',height:'fit-content' }}>
+          <Card onClick={()=>navigate(`/product_detail/1`)} sx={{ maxWidth: 230, width:'100%', margin: '9px',height:'fit-content' }}>
             <StyledCardActionArea>
               <StyledCardMedia
                 component="img"
                 height="200"
-                image="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                image={babyDress}
                 alt="green iguana"
               />
               <StyledCardContent>
                 <ProductNameWrapper>
                   Product Name
-                  600
+                </ProductNameWrapper>
+                <ProductNameWrapper>
+                  MRP 600 rs
                 </ProductNameWrapper>
               </StyledCardContent>
             </StyledCardActionArea>
